@@ -21,15 +21,15 @@ function App() {
       return;
     }
 
-    // Email validation
+    
     if (!email.includes("@")) {
-      alert("Invalid email. Please check your email address.");
+      alert('Invalid email');
       return;
     }
 
     // Phone number validation
     if (!/^\d{10}$/.test(phone)) {
-      alert("Invalid phone number. Please enter a 10-digit phone number.");
+      alert('Invalid phone number');
       return;
     }
 
@@ -37,7 +37,7 @@ function App() {
     const dobDate = new Date(dob);
     const today = new Date();
     if (dobDate > today) {
-      alert("Invalid date of birth. Date of birth cannot be in the future.");
+      alert('Invalid date of birth');
       return;
     }
 
