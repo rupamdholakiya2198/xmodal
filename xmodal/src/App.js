@@ -1,27 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const modalRef = useRef(null);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  const handleOutsideClick = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      closeModal();
-    }
-  };
-
-  useEffect(() => {
-    if (isModalOpen) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [isModalOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +14,19 @@ function App() {
     const phone = document.getElementById("phone").value.trim();
     const dob = document.getElementById("dob").value.trim();
 
-    if (!username || !email || !phone || !dob) {
+    if (!username) {
+      alert("Please fill out all the fields.");
+      return;
+    }
+    if (!email) {
+      alert("Please fill out all the fields.");
+      return;
+    }
+    if (!phone) {
+      alert("Please fill out all the fields.");
+      return;
+    }
+    if (!dob) {
       alert("Please fill out all the fields.");
       return;
     }
@@ -62,8 +58,11 @@ function App() {
       )}
 
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content" ref={modalRef}>
+        <div className="modal" onClick={closeModal}>
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
             <form onSubmit={handleSubmit}>
               <div>
                 <label>Username:</label>
