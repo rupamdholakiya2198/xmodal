@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import Modal from "./component/xmodal";
+
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
