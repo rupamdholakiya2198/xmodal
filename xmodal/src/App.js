@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useState } from 'react';
+import './App.css';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,38 +10,38 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const dob = document.getElementById("dob").value.trim();
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const dob = document.getElementById('dob').value.trim();
 
-    // Check for empty fields
+    // Step 1: Required field check
     if (!username || !email || !phone || !dob) {
-      alert("Please fill out all the fields.");
+      alert('Please fill out all the fields.');
       return;
     }
 
-    
-    if (!email.includes("@")) {
-      alert('Invalid email');
+    // Step 2: Email format check
+    if (!email.includes('@')) {
+      alert('Invalid email. Please check your email address.');
       return;
     }
 
-    // Phone number validation
+    // Step 3: Phone number validation
     if (!/^\d{10}$/.test(phone)) {
-      alert('Invalid phone number');
+      alert('Invalid phone number. Please enter a 10-digit phone number.');
       return;
     }
 
-    // Date of birth validation
+    // Step 4: DOB check (must not be a future date)
     const dobDate = new Date(dob);
     const today = new Date();
     if (dobDate > today) {
-      alert('Invalid date of birth');
+      alert('Invalid date of birth. Date of birth cannot be in the future.');
       return;
     }
 
-    // If everything is valid, close modal
+    // All validations passed
     closeModal();
   };
 
@@ -55,7 +55,7 @@ function App() {
         <div className="modal" onClick={closeModal}>
           <div
             className="modal-content"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside form
+            onClick={(e) => e.stopPropagation()} // prevent close when clicking inside form
           >
             <form onSubmit={handleSubmit}>
               <div>
@@ -74,9 +74,7 @@ function App() {
                 <label>Date of Birth:</label>
                 <input type="date" id="dob" />
               </div>
-              <button type="submit" className="submit-button">
-                Submit
-              </button>
+              <button type="submit" className="submit-button">Submit</button>
             </form>
           </div>
         </div>
