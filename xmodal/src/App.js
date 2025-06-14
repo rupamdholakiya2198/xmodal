@@ -9,38 +9,31 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const dob = document.getElementById("dob").value.trim();
 
-    if (!username) {
-      alert("Please fill out all the fields.");
-      return;
-    }
-    if (!email) {
-      alert("Please fill out all the fields.");
-      return;
-    }
-    if (!phone) {
-      alert("Please fill out all the fields.");
-      return;
-    }
-    if (!dob) {
+    // Check for empty fields
+    if (!username || !email || !phone || !dob) {
       alert("Please fill out all the fields.");
       return;
     }
 
+    // Email validation
     if (!email.includes("@")) {
       alert("Invalid email. Please check your email address.");
       return;
     }
 
+    // Phone number validation
     if (!/^\d{10}$/.test(phone)) {
       alert("Invalid phone number. Please enter a 10-digit phone number.");
       return;
     }
 
+    // Date of birth validation
     const dobDate = new Date(dob);
     const today = new Date();
     if (dobDate > today) {
@@ -48,6 +41,7 @@ function App() {
       return;
     }
 
+    // If everything is valid, close modal
     closeModal();
   };
 
@@ -61,7 +55,7 @@ function App() {
         <div className="modal" onClick={closeModal}>
           <div
             className="modal-content"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside form
           >
             <form onSubmit={handleSubmit}>
               <div>
